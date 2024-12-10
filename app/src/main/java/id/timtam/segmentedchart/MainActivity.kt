@@ -12,9 +12,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,46 +41,73 @@ class MainActivity : ComponentActivity() {
                         .background(Color.Transparent)
                         .fillMaxSize(),
                 ) { innerPadding ->
-                    Box(
-                        modifier =
-                            Modifier
-                                .padding(innerPadding)
-                                .fillMaxWidth()
-                                .fillMaxWidth(),
-                        contentAlignment = Alignment.Center,
+                    var data =
+                        remember {
+                            Data.stockData
+                        }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        SegmentedDonutChart(
-                            segments = Data.stockData,
-                            segmentThickness = 24f,
-                            segmentGaps = 2.5f,
-                            animationDurationMillis = 500,
-                        )
-
-                        Column(
+                        Box(
                             modifier =
                                 Modifier
-                                    .wrapContentSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
+                                    .padding(innerPadding)
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                            contentAlignment = Alignment.Center,
                         ) {
-                            Text(
-                                text = "${Data.stockData.sumOf { it.value }}",
-                                style =
-                                    TextStyle(
-                                        fontSize = TextUnit(24f, TextUnitType.Sp),
-                                        fontStyle = FontStyle.Normal,
-                                        fontWeight = FontWeight.Bold,
-                                    ),
+                            SegmentedDonutChart(
+                                segments = data,
+                                segmentThickness = 24f,
+                                segmentGaps = 2.5f,
+                                animationDurationMillis = 500,
                             )
 
-                            Text(
-                                text = "${Data.stockData.size} Stocks",
-                                style =
-                                    TextStyle(
-                                        fontSize = TextUnit(14f, TextUnitType.Sp),
-                                    ),
-                            )
+                            Column(
+                                modifier =
+                                    Modifier
+                                        .wrapContentSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Text(
+                                    text = "${data.sumOf { it.value }}",
+                                    style =
+                                        TextStyle(
+                                            fontSize = TextUnit(24f, TextUnitType.Sp),
+                                            fontStyle = FontStyle.Normal,
+                                            fontWeight = FontWeight.Bold,
+                                        ),
+                                )
+
+                                Text(
+                                    text = "${data.size} Stocks",
+                                    style =
+                                        TextStyle(
+                                            fontSize = TextUnit(14f, TextUnitType.Sp),
+                                        ),
+                                )
+                            }
                         }
+
+                        Button(
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
+                            onClick = {
+                                data = data.shuffled()
+                            },
+                            content = {
+                                Text(
+                                    text = "Randomize",
+                                    style =
+                                        TextStyle(
+                                            fontSize = TextUnit(14f, TextUnitType.Sp),
+                                        ),
+                                )
+                            },
+                        )
                     }
                 }
             }
