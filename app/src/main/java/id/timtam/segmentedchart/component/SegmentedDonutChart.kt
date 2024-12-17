@@ -1,12 +1,16 @@
 package id.timtam.segmentedchart.component
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -16,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastSumBy
 import id.timtam.segmentedchart.Data
 import id.timtam.segmentedchart.component.data.ArcData
-import id.timtam.segmentedchart.data.StockPercentageChartUIState
+import id.timtam.segmentedchart.data.StockAllocationChartUIState
 import id.timtam.segmentedchart.extension.addRoundedEdgeBothSides
 import id.timtam.segmentedchart.extension.fromHex
 import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
@@ -27,7 +31,7 @@ import kotlin.math.sin
 @Composable
 fun SegmentedDonutChart(
     modifier: Modifier = Modifier,
-    segments: List<StockPercentageChartUIState>,
+    segments: List<StockAllocationChartUIState>,
     segmentEdgeRadius: Float = 4f,
     segmentGaps: Float = 4f,
     segmentThickness: Float = 20f,
@@ -36,17 +40,32 @@ fun SegmentedDonutChart(
     val gaps = segmentGaps / 2
     val total = segments.fastSumBy { it.value }.toFloat()
     var currentAngle = -90f
+    var isInitial by remember { mutableStateOf(true) }
     val arcs =
-        segments.map { data ->
-            val sweepAngle = 360f * (data.value / total) - gaps
-            val startAngle = currentAngle
-            currentAngle += sweepAngle + gaps
-            ArcData(
-                targetSweepAngle = sweepAngle,
-                animation = Animatable(0f),
-                startAngle = startAngle,
-                color = Color.fromHex(data.color),
-            )
+        remember(segments) {
+            segments.map { data ->
+                val sweepAngle = 360f * (data.value / total) - gaps
+                val startAngle = currentAngle
+                currentAngle += sweepAngle + gaps
+                val anim =
+                    when {
+                        isInitial -> {
+                            Animatable(0f)
+                        }
+                        !isInitial && data.valueAnimation.animate.not() -> {
+                            Animatable(sweepAngle)
+                        }
+                        else -> {
+                            data.valueAnimation.animation
+                        }
+                    }
+                ArcData(
+                    targetSweepAngle = sweepAngle,
+                    animation = anim,
+                    startAngle = startAngle,
+                    color = Color.fromHex(data.color),
+                )
+            }
         }
 
     LaunchedEffect(arcs) {
@@ -57,11 +76,14 @@ fun SegmentedDonutChart(
                     animationSpec =
                         tween(
                             durationMillis = animationDurationMillis,
-                            easing = LinearEasing,
+                            easing = FastOutSlowInEasing,
                             delayMillis = index,
                         ),
                 )
             }
+        }
+        if (isInitial) {
+            isInitial = false
         }
     }
 
@@ -117,6 +139,7 @@ fun SegmentedDonutChartPreview() {
             segmentThickness = 24f,
             segmentGaps = 2.5f,
             segmentEdgeRadius = 4f,
+            animationDurationMillis = 200,
         )
     }
 }
