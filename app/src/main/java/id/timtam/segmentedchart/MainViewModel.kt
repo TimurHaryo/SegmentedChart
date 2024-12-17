@@ -1,6 +1,5 @@
 package id.timtam.segmentedchart
 
-import androidx.compose.animation.core.Animatable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.timtam.segmentedchart.data.AllocationAnimationUIState
@@ -44,7 +43,7 @@ class MainViewModel : ViewModel() {
                             valueAnimation =
                                 AllocationAnimationUIState(
                                     animate = true,
-                                    animation = Animatable(360f * (newValue / total)),
+                                    value = 360f * (newValue / total),
                                 ),
                         )
                     } else {

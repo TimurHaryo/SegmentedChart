@@ -2,6 +2,7 @@ package id.timtam.segmentedchart.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
@@ -48,17 +49,21 @@ fun SegmentedDonutChart(
                 val startAngle = currentAngle
                 currentAngle += sweepAngle + gaps
                 val anim =
-                    when {
-                        isInitial -> {
-                            Animatable(0f)
-                        }
-                        !isInitial && data.valueAnimation.animate.not() -> {
-                            Animatable(sweepAngle)
-                        }
-                        else -> {
-                            data.valueAnimation.animation
-                        }
-                    }
+                    Animatable(
+                        initialValue =
+                            when {
+                                isInitial -> {
+                                    0f
+                                }
+                                !isInitial && data.valueAnimation.animate.not() -> {
+                                    sweepAngle
+                                }
+                                else -> {
+                                    data.valueAnimation.value
+                                }
+                            },
+                        visibilityThreshold = Spring.DampingRatioHighBouncy,
+                    )
                 ArcData(
                     targetSweepAngle = sweepAngle,
                     animation = anim,

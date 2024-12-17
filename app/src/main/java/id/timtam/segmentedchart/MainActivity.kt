@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import id.timtam.segmentedchart.component.SegmentedDonutChart
 import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
+import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {
@@ -71,6 +72,11 @@ class MainActivity : ComponentActivity() {
                                 data = (resource as Resource.Success).data
                             }
                         }
+                    }
+
+                    LaunchedEffect(Unit) {
+                        delay(2000)
+                        viewModel.populateData()
                     }
 
                     Column(
