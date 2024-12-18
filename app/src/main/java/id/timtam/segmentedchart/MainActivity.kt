@@ -10,12 +10,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,8 +38,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import id.timtam.segmentedchart.component.SegmentedDonutChart
+import id.timtam.segmentedchart.component.layout.TopStockAllocationLayout
 import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
-import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {
@@ -74,21 +77,19 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    LaunchedEffect(Unit) {
-                        delay(2000)
-                        viewModel.populateData()
-                    }
-
                     Column(
                         modifier =
                             Modifier
-                                .padding(top = 128.dp),
+                                .padding(top = 64.dp, bottom = innerPadding.calculateBottomPadding())
+                                .fillMaxHeight()
+                                .verticalScroll(
+                                    state = rememberScrollState(),
+                                ),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Box(
                             modifier =
                                 Modifier
-                                    .padding(innerPadding)
                                     .fillMaxWidth()
                                     .wrapContentHeight(),
                             contentAlignment = Alignment.Center,
@@ -138,7 +139,9 @@ class MainActivity : ComponentActivity() {
                         Button(
                             modifier =
                                 Modifier
-                                    .wrapContentWidth()
+                                    .padding(
+                                        top = 24.dp,
+                                    ).wrapContentWidth()
                                     .wrapContentHeight(),
                             onClick = {
                                 viewModel.populateData()
@@ -152,6 +155,13 @@ class MainActivity : ComponentActivity() {
                                         ),
                                 )
                             },
+                        )
+
+                        TopStockAllocationLayout(
+                            modifier =
+                                Modifier
+                                    .padding(top = 24.dp),
+                            stocks = Data.top20StocksData,
                         )
                     }
                 }

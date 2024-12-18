@@ -26,19 +26,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import id.timtam.segmentedchart.R
-import id.timtam.segmentedchart.data.TopStockAllocationUIState
+import id.timtam.segmentedchart.data.StockAllocationItemUIState
+import id.timtam.segmentedchart.extension.fromHex
 import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
 
 @Composable
 fun StockAllocationItem(
-    item: TopStockAllocationUIState,
+    item: StockAllocationItemUIState,
     showProgressBar: Boolean = true,
 ) {
     Row(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(
+                    vertical = 12.dp,
+                ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val iconModifier =
@@ -50,7 +53,8 @@ fun StockAllocationItem(
                 }
             }
         Box(
-            modifier = iconModifier
+            modifier =
+                iconModifier
                     .clip(CircleShape),
             contentAlignment = Alignment.Center,
         ) {
@@ -78,12 +82,12 @@ fun StockAllocationItem(
                 Text(
                     text = item.symbol,
                     fontSize = 12.sp,
-                    color = Color.Black,
+                    color = Color.White,
                 )
                 Text(
                     text = item.value,
                     fontSize = 12.sp,
-                    color = Color.Black,
+                    color = Color.White,
                     modifier =
                         Modifier
                             .padding(start = 4.dp)
@@ -92,18 +96,18 @@ fun StockAllocationItem(
                 Text(
                     text = item.percentageText,
                     fontSize = 12.sp,
-                    color = Color.Black,
+                    color = Color.White,
                 )
             }
 
             if (showProgressBar) {
                 LinearProgressIndicator(
                     modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(top = 6.dp),
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 6.dp),
                     progress = { item.percentage },
-                    color = Color(0xFF00BB00),
+                    color = Color.fromHex(item.color),
                     trackColor = Color(0xFF1F1F1F),
                     strokeCap = StrokeCap.Round,
                 )
@@ -112,36 +116,38 @@ fun StockAllocationItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF030303)
 @Composable
 fun StockAllocationItemPreview1() {
-    SegmentedChartTheme {
+    SegmentedChartTheme(darkTheme = true) {
         StockAllocationItem(
             item =
-                TopStockAllocationUIState(
+                StockAllocationItemUIState(
                     symbol = "ADRO",
                     value = "Rp27,000,000",
                     percentageText = "25.00%",
                     percentage = 0.25f,
+                    color = "0BA16B",
                 ),
             showProgressBar = true,
         )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
 fun StockAllocationItemPreview2() {
-    SegmentedChartTheme {
+    SegmentedChartTheme(darkTheme = true) {
         StockAllocationItem(
             item =
-            TopStockAllocationUIState(
-                symbol = "ADRO",
-                value = "Rp27,000,000",
-                percentageText = "25.00%",
-                percentage = 0.25f,
-            ),
-            showProgressBar = false
+                StockAllocationItemUIState(
+                    symbol = "ADRO",
+                    value = "Rp27,000,000",
+                    percentageText = "25.00%",
+                    percentage = 0.25f,
+                    color = "0BA16B",
+                ),
+            showProgressBar = false,
         )
     }
 }
