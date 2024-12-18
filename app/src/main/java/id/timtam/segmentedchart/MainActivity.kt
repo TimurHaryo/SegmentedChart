@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import id.timtam.segmentedchart.component.SegmentedDonutChart
+import id.timtam.segmentedchart.component.layout.OtherStockAllocationLayout
 import id.timtam.segmentedchart.component.layout.TopStockAllocationLayout
 import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
 
@@ -161,7 +162,11 @@ class MainActivity : ComponentActivity() {
                             modifier =
                                 Modifier
                                     .padding(top = 24.dp),
-                            stocks = Data.top20StocksData,
+                            topStocks = Data.top20StocksData,
+                        )
+
+                        OtherStockAllocationLayout(
+                            otherStock = Data.otherStock,
                         )
                     }
                 }

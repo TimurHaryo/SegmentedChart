@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
@@ -18,7 +17,7 @@ import id.timtam.segmentedchart.ui.theme.SegmentedChartTheme
 @Composable
 fun TopStockAllocationLayout(
     modifier: Modifier = Modifier,
-    stocks: List<StockAllocationItemUIState>,
+    topStocks: List<StockAllocationItemUIState>,
 ) {
     Column(
         modifier =
@@ -27,7 +26,7 @@ fun TopStockAllocationLayout(
                 .fillMaxWidth()
                 .wrapContentHeight(),
     ) {
-        stocks.forEach { stock ->
+        topStocks.forEach { stock ->
             key(stock.symbol) {
                 StockAllocationItem(
                     item = stock,
@@ -43,7 +42,7 @@ fun TopStockAllocationLayout(
 fun TopStockAllocationLayoutPreview() {
     SegmentedChartTheme {
         TopStockAllocationLayout(
-            stocks = Data.top20StocksData,
+            topStocks = Data.top20StocksData,
         )
     }
 }

@@ -1,5 +1,6 @@
 package id.timtam.segmentedchart
 
+import id.timtam.segmentedchart.data.OtherStockAllocationItemUIState
 import id.timtam.segmentedchart.data.StockAllocationChartUIState
 import id.timtam.segmentedchart.data.StockAllocationItemUIState
 
@@ -36,140 +37,225 @@ object Data {
                 value = "Rp25,000,000",
                 percentageText = "25.00%",
                 percentage = 0.25f,
-                color = "#0BA16B"
+                color = "#0BA16B",
             ),
             StockAllocationItemUIState(
                 symbol = "BMRI",
                 value = "Rp15,000,000",
                 percentageText = "15.00%",
                 percentage = 0.15f,
-                color = "#35CBB1"
+                color = "#35CBB1",
             ),
             StockAllocationItemUIState(
                 symbol = "BBRI",
                 value = "Rp10,000,000",
                 percentageText = "10.00%",
                 percentage = 0.1f,
-                color = "#09AE91"
+                color = "#09AE91",
             ),
             StockAllocationItemUIState(
                 symbol = "BBCA",
                 value = "Rp5,000,000",
                 percentageText = "5.00%",
                 percentage = 0.05f,
-                color = "#34518D"
+                color = "#34518D",
             ),
             StockAllocationItemUIState(
                 symbol = "AALI",
                 value = "Rp5,000,000",
                 percentageText = "5.00%",
                 percentage = 0.05f,
-                color = "#2073AC"
+                color = "#2073AC",
             ), //
             StockAllocationItemUIState(
                 symbol = "ADHI",
                 value = "Rp5,000,000",
                 percentageText = "5.00%",
                 percentage = 0.05f,
-                color = "#439ACB"
+                color = "#439ACB",
             ),
             StockAllocationItemUIState(
                 symbol = "ANTM",
                 value = "Rp5,000,000",
                 percentageText = "5.00%",
                 percentage = 0.05f,
-                color = "#796FEC"
+                color = "#796FEC",
             ),
             StockAllocationItemUIState(
                 symbol = "ASII",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#645CC1"
+                color = "#645CC1",
             ),
             StockAllocationItemUIState(
                 symbol = "BRIS",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#8228BD"
+                color = "#8228BD",
             ),
             StockAllocationItemUIState(
                 symbol = "BSDE",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#7E4B9F"
+                color = "#7E4B9F",
             ), //
             StockAllocationItemUIState(
                 symbol = "CTIM",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#861D75"
+                color = "#861D75",
             ),
             StockAllocationItemUIState(
                 symbol = "CTRA",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#E65BBF"
+                color = "#E65BBF",
             ),
             StockAllocationItemUIState(
                 symbol = "GGRM",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#D5625D"
+                color = "#D5625D",
             ),
             StockAllocationItemUIState(
                 symbol = "HSMP",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#D74342"
+                color = "#D74342",
             ),
             StockAllocationItemUIState(
                 symbol = "HRUM",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#FF3540"
+                color = "#FF3540",
             ), //
             StockAllocationItemUIState(
                 symbol = "ICBP",
                 value = "Rp2,000,000",
                 percentageText = "2.00%",
                 percentage = 0.02f,
-                color = "#E4830C"
+                color = "#E4830C",
             ),
             StockAllocationItemUIState(
                 symbol = "INCO",
                 value = "Rp1,000,000",
                 percentageText = "1.00%",
                 percentage = 0.01f,
-                color = "#FCBC1D"
+                color = "#FCBC1D",
             ),
             StockAllocationItemUIState(
                 symbol = "INDF",
                 value = "Rp1,000,000",
                 percentageText = "1.00%",
                 percentage = 0.01f,
-                color = "#966B40"
+                color = "#966B40",
             ),
             StockAllocationItemUIState(
                 symbol = "INTP",
                 value = "Rp1,000,000",
                 percentageText = "1.00%",
                 percentage = 0.01f,
-                color = "#89A23F"
+                color = "#89A23F",
             ),
             StockAllocationItemUIState(
                 symbol = "ITMG",
                 value = "Rp1,000,000",
                 percentageText = "1.00%",
                 percentage = 0.01f,
-                color = "#008D00"
+                color = "#008D00",
             ),
+        )
+
+    val otherStock =
+        OtherStockAllocationItemUIState(
+            totalOther =
+                StockAllocationItemUIState(
+                    symbol = "Other",
+                    value = "Rp14,894,000",
+                    percentageText = "9.00%",
+                    percentage = 0.09f,
+                    color = "#616161",
+                ),
+            stocks =
+                listOf(
+                    StockAllocationItemUIState(
+                        symbol = "JPFA",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#861D75",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "JSMR",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#E65BBF",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "KLBF",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#D5625D",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "LPPF",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#D74342",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "MNCN",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#FF3540",
+                    ), //
+                    StockAllocationItemUIState(
+                        symbol = "MYOR",
+                        value = "Rp5,400,000",
+                        percentageText = "1.00%",
+                        percentage = 0.01f,
+                        color = "#E4830C",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "PGAS",
+                        value = "Rp1,000,000",
+                        percentageText = "0.75%",
+                        percentage = 0.0075f,
+                        color = "#FCBC1D",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "PTBA",
+                        value = "Rp1,000,000",
+                        percentageText = "0.75%",
+                        percentage = 0.0075f,
+                        color = "#966B40",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "PTPP",
+                        value = "Rp1,000,000",
+                        percentageText = "0.75%",
+                        percentage = 0.0075f,
+                        color = "#89A23F",
+                    ),
+                    StockAllocationItemUIState(
+                        symbol = "PWON",
+                        value = "Rp1,000,000",
+                        percentageText = "0.75%",
+                        percentage = 0.0075f,
+                        color = "#008D00",
+                    ),
+                ),
         )
 }
